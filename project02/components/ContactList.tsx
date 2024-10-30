@@ -34,16 +34,18 @@ export default function ContactList() {
             <Text style={styles.headingText}>ContactList</Text>
             <ScrollView
                 style={styles.container}
-                scrollEnabled={false}
+                scrollEnabled={true}
             >
                 {contacts.map((contact) => (
-                    <View key={contact.uid} style={styles.contact}>
+                    <View key={contact.uid} style={styles.userCard}>
                         <Image
                             source={{ uri: contact.imageUrl }}
                             style={styles.userImage}
                         />
-                        <Text>{contact.name}</Text>
-                        <Text>{contact.status}</Text>
+                        <View>
+                            <Text style={styles.userName}>{contact.name}</Text>
+                            <Text style={styles.userStatus}>{contact.status}</Text>
+                        </View>
                     </View>
                 ))}
             </ScrollView>
@@ -57,7 +59,33 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingHorizontal: 8,
     },
-    container: {},
-    contact: {},
-    userImage: {}
+    container: {
+        paddingHorizontal: 16,
+        marginVertical: 4,
+    },
+    userCard: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 3,
+        backgroundColor: '#8D3DAF',
+        padding: 8,
+        borderRadius: 10,
+    },
+    userImage: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        marginRight: 16,
+        marginLeft: 8,
+    },
+    userName: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: 'white',
+    },
+    userStatus: {
+        fontSize: 12,
+        color: 'white',
+    },
 });

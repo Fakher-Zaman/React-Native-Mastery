@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         paddingHorizontal: 8,
-        paddingVertical: 16,
+        paddingTop: 16,
     },
     container: {
         flex: 1,
