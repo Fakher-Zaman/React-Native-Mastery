@@ -6,4 +6,4 @@
 
 ## Project No. 2
 ### Title: Styler
-#### Display different styling Cards
+#### Displaying Cards with different Styles
