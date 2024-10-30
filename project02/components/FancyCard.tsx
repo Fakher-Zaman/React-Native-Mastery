@@ -4,10 +4,10 @@ import React from 'react';
 export default function FancyCard() {
     return (
         <View>
-            <Text style={styles.headingText}>Trending Assets</Text>
+            <Text style={styles.headingText}>Trending Card</Text>
             <View style={[styles.card, styles.cardElevated]}>
                 <Image
-                    style={styles.cardImage} 
+                    style={styles.cardImage}
                     source={{
                         uri: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQQZA8s3i80S9sJnQwPMBucnYOuPjOsPWuuWKP272agfS60vRU_0o1Vzv_6W03OySwua1OyWOjO2wlK9hVL2lzOgQ'
                     }}
@@ -68,5 +68,5 @@ const styles = StyleSheet.create({
         marginTop: 6,
         flexShrink: 1,
     },
-    cardFooter: { },
+    cardFooter: {},
 });

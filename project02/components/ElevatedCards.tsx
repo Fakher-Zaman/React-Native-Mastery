@@ -41,9 +41,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 16,
     },
-    container: {
-        // padding: 8,
-    },
+    container: {},
     card: {
         flex: 1,
         borderRadius: 4,
