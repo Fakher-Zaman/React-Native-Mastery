@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+
+// Form Validation
+import * as Yup from 'yup';
+
+const PasswordSchema = Yup.object().shape({
+  passwordLength: Yup.number()
+    .min(4, 'Too Short!')
+    .max(16, 'Too Long!')
+    .required('Length is required'),
+})
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>App</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
