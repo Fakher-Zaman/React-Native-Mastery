@@ -46,7 +46,7 @@ const App = (): JSX.Element => {
   }
 
   return (
-    <SafeAreaView>
+    <>
       <StatusBar />
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -87,7 +87,7 @@ const App = (): JSX.Element => {
         </View>
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
-    </SafeAreaView>
+    </>
   );
 }
 
