@@ -1,45 +1,92 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Snackbar from 'react-native-snackbar';
+import React, { useState } from 'react';
 
-export default function App() {
+import {
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+
+import { currencyByRupee } from './constants';
+import CurrencyButton from './components/CurrencyButton';
+import Toast from 'react-native-toast-message';
+
+const App = (): JSX.Element => {
   const [inputValue, setInputValue] = useState('');
   const [resultValue, setResultValue] = useState('');
   const [targetCurrency, setTargetCurrency] = useState('');
 
   const buttonPressed = (targetValue: Currency) => {
     if (!inputValue) {
-      return Snackbar.show({
-        text: 'Please enter an amount',
-        backgroundColor: '#EA7773',
-        textColor: '#000000',
-        duration: Snackbar.LENGTH_SHORT,
+      return Toast.show({
+        text1: 'Please enter an amount',
+        type: 'error',
+        position: 'bottom',
       });
     }
 
     const inputAmount = parseFloat(inputValue);
+
     if (!isNaN(inputAmount)) {
-      const convertedAmount = inputAmount * targetValue.value;
-      const result = `${targetValue.symbol} ${convertedAmount.toFixed(2)}`;
+      const convertedValue = inputAmount * targetValue.value;
+      const result = `${targetValue.symbol} ${convertedValue.toFixed(2)}`;
       setResultValue(result);
       setTargetCurrency(targetValue.name);
     } else {
-      return Snackbar.show({
-        text: 'Please enter a valid amount',
-        backgroundColor: '#F4BE2C',
-        textColor: '#000000',
-        duration: Snackbar.LENGTH_SHORT,
+      return Toast.show({
+        text1: 'Please enter a valid amount',
+        type: 'error',
+        position: 'bottom',
       });
     }
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <StatusBar />
-      <View>
-        <Text>1</Text>
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <View style={styles.rupeesContainer}>
+            <Text style={styles.rupee}>₹</Text>
+            <TextInput
+              maxLength={14}
+              value={inputValue}
+              clearButtonMode='always' //only for iOS
+              onChangeText={setInputValue}
+              keyboardType='number-pad'
+              placeholder='Enter amount in Rupees'
+            />
+          </View>
+          {resultValue && (
+            <Text style={styles.resultTxt} >
+              {resultValue}
+            </Text>
+          )}
+        </View>
+        <View style={styles.bottomContainer}>
+          <FlatList
+            numColumns={3}
+            data={currencyByRupee}
+            keyExtractor={item => item.name}
+            renderItem={({ item }) => (
+              <Pressable
+                style={[
+                  styles.button,
+                  targetCurrency === item.name && styles.selected
+                ]}
+                onPress={() => buttonPressed(item)}
+              >
+                <CurrencyButton {...item} />
+              </Pressable>
+            )}
+          />
+        </View>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 }
@@ -102,3 +149,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffeaa7',
   },
 });
+
+export default App;
