@@ -1,0 +1,1 @@
+Copy the code of ReactNative-application.cmake file and paste it into node_modules path given in the screenshot.
