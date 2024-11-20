@@ -1,10 +1,35 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
-import {playbackService} from '../../musicPlayerServices';
+import {playbackService, addTrack, setupPlayer} from '../../musicPlayerServices';
+import { useEffect, useState } from 'react';
 
 // import { StatusBar } from 'expo-status-bar';
 
 export default function HomeScreen() {
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
+
+  async function setup() {
+    const isSetup = await setupPlayer();
+
+    if (isSetup) {
+      await addTrack();
+    }
+
+    setIsPlayerReady(true);
+  }
+
+  useEffect(() => {
+    setup();
+  }, []);
+  
+  if (!isPlayerReady) {
+    return (
+      <SafeAreaView>
+        <ActivityIndicator />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView>
       <StatusBar />
@@ -14,22 +39,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  container: {
+    flex: 1,
+  }
 });
 
 TrackPlayer.registerPlaybackService(() => playbackService);
